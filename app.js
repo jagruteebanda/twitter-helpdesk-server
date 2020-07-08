@@ -93,8 +93,8 @@ broadcast.on("connection", userSocket => {
   stream.on('tweet', function (tweet) {
     console.log(tweet.text);
     // dbFunctions.saveCustomer(tweet.user);
-    dbFunctions.saveTweet(tweet);
     userSocket.emit('tweet', { 'tweet': tweet });
+    // dbFunctions.saveTweet(tweet);
   })
 
   userSocket.on("disconnect", () => console.log("Client disconnected"));

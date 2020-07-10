@@ -52,7 +52,7 @@ passport.use(
       consumerKey: API_KEYS.CONSUMER_KEY,
       consumerSecret: API_KEYS.CONSUMER_SECRET,
       // callbackURL: "http://jagz.com:3001/home",
-      callbackURL: "https://client-helpdesk.herokuapp.com//home",
+      callbackURL: "https://client-helpdesk.herokuapp.com/home",
       proxy: true,
     },
     function (token, tokenSecret, profile, cb) {

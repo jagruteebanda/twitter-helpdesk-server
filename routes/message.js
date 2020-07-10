@@ -26,9 +26,10 @@ router.get("/list", function (req, res, next) {
 
 /* POST MESSAGES. */
 router.post("/send", function (req, res, next) {
+  console.log(req.body);
   twitterAPIClient.post(
     "direct_messages/events/new",
-    { message: req.body },
+    { event: req.body },
     (err, data, response) => {
       if (err)
         res.send({

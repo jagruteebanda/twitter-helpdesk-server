@@ -19,36 +19,38 @@
 //   console.log(body);
 // });
 
-const Twit = require("twit");
-const API_KEYS = require("./config/api_keys");
+// const Twit = require("twit");
+// const API_KEYS = require("./config/api_keys");
 
-var twitterAPIClient = new Twit({
-  consumer_key: API_KEYS.CONSUMER_KEY,
-  consumer_secret: API_KEYS.CONSUMER_SECRET,
-  access_token: API_KEYS.ACCESS_TOKEN,
-  access_token_secret: API_KEYS.ACCESS_TOKEN_SECRET,
-  // timeout_ms: 60 * 1000, // optional HTTP request timeout to apply to all requests.
-});
+// var twitterAPIClient = new Twit({
+//   consumer_key: API_KEYS.CONSUMER_KEY,
+//   consumer_secret: API_KEYS.CONSUMER_SECRET,
+//   access_token: API_KEYS.ACCESS_TOKEN,
+//   access_token_secret: API_KEYS.ACCESS_TOKEN_SECRET,
+//   // timeout_ms: 60 * 1000, // optional HTTP request timeout to apply to all requests.
+// });
 
 
-const handleStream = twitterAPIClient.stream("statuses/filter", {
-  track: "@Jagz22925494"
-});
+// const handleStream = twitterAPIClient.stream("statuses/filter", {
+//   track: "@Jagz22925494"
+// });
 
-// userSocket.emit('heelo', 'hello');
+// // userSocket.emit('heelo', 'hello');
 
-handleStream.on("tweet", function (tweet) {
-  console.log(tweet.text);
-//   // userSocket.emit("tweet", { tweet: tweet });
-//   // dbFunctions.saveCustomer(tweet.user);
-//   // dbFunctions.saveTweet(tweet);
-});
+// handleStream.on("tweet", function (tweet) {
+//   console.log(tweet.text);
+// //   // userSocket.emit("tweet", { tweet: tweet });
+// //   // dbFunctions.saveCustomer(tweet.user);
+// //   // dbFunctions.saveTweet(tweet);
+// });
 
-// const stream = twitterAPIClient.stream("user");
-handleStream.on("direct_message", function (directMsg) {
-  console.log(directMsg);
-});
+// // const stream = twitterAPIClient.stream("user");
+// handleStream.on("direct_message", function (directMsg) {
+//   console.log(directMsg);
+// });
 
-twitterAPIClient.get('direct_messages/events/list', { q: '@Jagrutee2' }, (err, data, response) => {
-  console.log(data);
-})
+// twitterAPIClient.get('direct_messages/events/list', { q: '@Jagrutee2' }, (err, data, response) => {
+//   console.log(data);
+// })
+
+

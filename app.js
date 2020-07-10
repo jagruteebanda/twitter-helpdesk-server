@@ -10,7 +10,7 @@ const cors = require("cors");
 const Twit = require("twit");
 const http = require("http");
 const socketIo = require("socket.io");
-const { Client } = require("pg");
+const pg = require("pg");
 const passport = require("passport");
 const TwitterStrategy = require("passport-twitter").Strategy;
 const session = require("express-session");
@@ -34,7 +34,12 @@ global.db = {};
 /**
  * POSTGRESQL SERVER CONNECTION
  */
-const pgClient = new Client(postgresConfig.localPGConfig);
+// const pgClient = new Client(postgresConfig.localPGConfig);
+// const pgClient = new Client(postgresConfig.herokuPGConfig);
+process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
+pg.defaults.ssl = true;
+const pgClient = new pg.Client(postgresConfig.herokuPGConfig);
+// const pgClient = new pg.Pool(postgresConfig.herokuPGConfig);
 global.db.pgClient = pgClient;
 pgClient.connect();
 
@@ -47,6 +52,7 @@ passport.use(
       consumerKey: API_KEYS.CONSUMER_KEY,
       consumerSecret: API_KEYS.CONSUMER_SECRET,
       callbackURL: "http://jagz.com:3001/home",
+      // callbackURL: "https://client-helpdesk.herokuapp.com//home",
       proxy: true,
     },
     function (token, tokenSecret, profile, cb) {

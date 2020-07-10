@@ -19,6 +19,7 @@
     "passport-twitter": "^1.0.4",
     "pg": "^8.2.2",
     "request": "^2.88.2",
+    "sequelize": "^6.3.1",
     "socket.io": "^2.3.0",
     "twit": "^2.2.11"
   }

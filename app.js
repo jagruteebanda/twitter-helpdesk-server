@@ -59,8 +59,8 @@ passport.use(
     {
       consumerKey: API_KEYS.CONSUMER_KEY,
       consumerSecret: API_KEYS.CONSUMER_SECRET,
-      // callbackURL: "http://jagz.com:3001/home",
-      callbackURL: "https://client-helpdesk.herokuapp.com/home",
+      callbackURL: "http://jagz.com:3001/home",
+      // callbackURL: "https://client-helpdesk.herokuapp.com/home",
       proxy: true,
     },
     function (token, tokenSecret, profile, cb) {
@@ -152,7 +152,8 @@ authEmitter.on("get_oauth", (data) => {
       consumer_key: API_KEYS.CONSUMER_KEY,
       consumer_secret: API_KEYS.CONSUMER_SECRET,
       env: 'dev',
-      port: 1337
+      port: 5003
+      // app
     });
 
     try {

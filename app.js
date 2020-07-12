@@ -7,8 +7,8 @@ var logger = require("morgan");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 
-// const http = require("http");
-// const socketIo = require("socket.io");
+const http = require("http");
+const socketIo = require("socket.io");
 
 const Twit = require("twit");
 const pg = require("pg");
@@ -39,7 +39,25 @@ global.db = {};
 global.app = app;
 
 // require after app is defined
-const socket = require("./init/socketConnections");
+// const socket = require("./init/socketConnections");
+const broadcastPort = process.env.BPORT || 5002;
+// Creating broadcast server
+const broadcastServer = http.createServer(app);
+// Socket connection for broadcast
+const broadcast = socketIo(broadcastServer);
+broadcast.on("connection", (broadcastSocket) => {
+  console.log("Connected to broadcast client");
+
+  global.broadcastSocket = broadcastSocket;
+  // module.exports.broadcast = broadcastSocket;
+  // global.socket = socket;
+
+  broadcastSocket.on("disconnect", () => console.log("Client disconnected"));
+});
+// Ingestion server listening to Broadcast port
+broadcastServer.listen(broadcastPort, () =>
+  console.log(`Broadcast socket listening on port ${broadcastPort}`)
+);
 
 /**
  * POSTGRESQL SERVER CONNECTION
@@ -165,14 +183,14 @@ authEmitter.on("get_oauth", (data) => {
       webhook.on('event', event => {
         // Direct Message Event
         if (event.direct_message_events && event.direct_message_events.length > 0) {
-          socket.broadcast.emit('message', {
+          global.broadcastSocket.emit('message', {
             message: event.direct_message_events
           });
         }
 
         // Tweet Event
         if (event.tweet_create_events && event.tweet_create_events.length > 0) {
-          socket.broadcast.emit('tweet', {
+          global.broadcastSocket.emit('tweet', {
             tweet: event.tweet_create_events
           });
         }

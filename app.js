@@ -146,7 +146,7 @@ app.use(bodyParser.json());
 
 // ROUTES to define APIs
 app.use("/", indexRouter);
-app.use("/apis/auth", authRouter);
+// app.use("/apis/auth", authRouter);
 app.use("/apis/user", usersRouter);
 app.use("/apis/tweets", tweetsRouter);
 app.use("/apis/message", messageRouter);
@@ -154,19 +154,19 @@ app.use("/apis/message", messageRouter);
 /* twitter login API. */
 app.get("/twitter/login", passport.authenticate("twitter"));
 
-app.get(
-  "/twitter/callback",
-  passport.authenticate("twitter", {
-    failureRedirect: "/",
-  }),
-  function (req, res) {
-    console.log(req);
-    // res.redirect("/");
+// app.get(
+//   "/twitter/callback",
+//   passport.authenticate("twitter", {
+//     failureRedirect: "/",
+//   }),
+//   function (req, res) {
+//     console.log(req);
+//     // res.redirect("/");
 
-    res.setHeader("x-auth-token", req.token);
-    res.redirect("http://jagz.com:3001/home");
-  }
-);
+//     res.setHeader("x-auth-token", req.token);
+//     res.redirect("http://jagz.com:3001/home");
+//   }
+// );
 
 const EventEmitter = require("events");
 class AuthEmitter extends EventEmitter {}

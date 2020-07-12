@@ -1,10 +1,10 @@
 var express = require('express');
 var router = express.Router();
-const User = require('../databaseFunctions/User/indexUser');
+const User = require('../database/User/indexUser');
 
 /* Login API. */
 router.post('/login', function (req, res, next) {
-  console.log(req.body);
+  // console.log(req.body);
   User.find(req.body, (error, result) => {
     if (error) {
       res.send({

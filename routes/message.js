@@ -5,10 +5,10 @@ const request = require("request");
 const messageList = require("../responsedata/messageList"); // static data
 
 /* GET MESSAGES. */
-router.get("/list", function (req, res, next) {
+router.post("/list", function (req, res, next) {
   twitterAPIClient.get(
     "direct_messages/events/list",
-    { q: "@Jagrutee2" },
+    { q: req.body.userHandle },
     (err, data, response) => {
       if (err)
         res.send({
@@ -26,7 +26,7 @@ router.get("/list", function (req, res, next) {
 
 /* POST MESSAGES. */
 router.post("/send", function (req, res, next) {
-  console.log(req.body);
+  // console.log(req.body);
   twitterAPIClient.post(
     "direct_messages/events/new",
     { event: req.body },

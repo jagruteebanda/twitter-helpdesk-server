@@ -30,7 +30,7 @@ var messageRouter = require("./routes/message");
 
 // For webhooks
 const { Autohook } = require("twitter-autohook");
-const twitterWebhooks = require("twitter-webhooks");
+// const twitterWebhooks = require("twitter-webhooks");
 
 var app = express();
 
@@ -59,9 +59,9 @@ passport.use(
     {
       consumerKey: API_KEYS.CONSUMER_KEY,
       consumerSecret: API_KEYS.CONSUMER_SECRET,
-      callbackURL: "http://jagz.com:3001/home",
+      // callbackURL: "http://jagz.com:3001/home",
       // callbackURL: "http://jagz.com:3000/twitter/callback",
-      // callbackURL: "https://client-helpdesk.herokuapp.com/home",
+      callbackURL: "https://client-helpdesk.herokuapp.com/home",
       proxy: true,
     },
     function (token, tokenSecret, profile, cb) {
@@ -218,64 +218,6 @@ authEmitter.on("get_oauth", (data) => {
     }
   })();
 });
-
-//Subscribe for a particular user activity
-// authEmitter.on("get_oauth", (data) => {
-//   try {
-//     const userActivityWebhook = twitterWebhooks.userActivity({
-//       serverUrl: "https://client-helpdesk-server.herokuapp.com",
-//       route: "/webhook", //default : '/'
-//       consumerKey: API_KEYS.CONSUMER_KEY,
-//       consumerSecret: API_KEYS.CONSUMER_SECRET,
-//       accessToken: API_KEYS.ACCESS_TOKEN,
-//       accessTokenSecret: API_KEYS.ACCESS_TOKEN_SECRET,
-//       environment: "dev", //default : 'env-beta'
-//       app,
-//     });
-
-//     //Register your webhook url - just needed once per URL
-//     userActivityWebhook.register();
-//     userActivityWebhook
-//       .subscribe({
-//         userId: data.user_id,
-//         accessToken: data.oauth_token,
-//         accessTokenSecret: data.oauth_token_secret,
-//       })
-//       .then(function (userActivity) {
-//         userActivity
-//           .on("favorite", (data) =>
-//             console.log(userActivity.id + " - favorite")
-//           )
-//           .on("tweet_create", (data) => {
-//             console.log("webhook tweet:: ", data);
-//             socket.broadcast("tweet", {
-//               tweet: data,
-//             });
-//           })
-//           .on("follow", (data) => console.log(userActivity.id + " - follow"))
-//           .on("mute", (data) => console.log(userActivity.id + " - mute"))
-//           .on("revoke", (data) => console.log(userActivity.id + " - revoke"))
-//           .on("direct_message", (data) => {
-//             console.log("webhook message:: ", data);
-//             socket.broadcast("message", {
-//               message: data,
-//             });
-//           })
-//           .on("direct_message_indicate_typing", (data) =>
-//             console.log(userActivity.id + " - direct_message_indicate_typing")
-//           )
-//           .on("direct_message_mark_read", (data) =>
-//             console.log(userActivity.id + " - direct_message_mark_read")
-//           )
-//           .on("tweet_delete", (data) =>
-//             console.log(userActivity.id + " - tweet_delete")
-//           );
-//       });
-//   } catch (err) {
-//     console.log("Webhook error: ", err);
-//   }
-// });
-
 
 
 // catch 404 and forward to error handler

@@ -60,7 +60,6 @@ passport.use(
       consumerKey: API_KEYS.CONSUMER_KEY,
       consumerSecret: API_KEYS.CONSUMER_SECRET,
       // callbackURL: "http://jagz.com:3001/home",
-      // callbackURL: "http://jagz.com:3000/twitter/callback",
       callbackURL: "https://client-helpdesk.herokuapp.com/home",
       proxy: true,
     },
@@ -95,23 +94,6 @@ var twitterAPIClient = new Twit({
 // Saving twitter API client data in global
 global.twitterAPIClient = twitterAPIClient;
 
-// streaming tweets for specific handle
-// const handleStream = twitterAPIClient.stream("statuses/filter", {
-//   track: "@Jagrutee2",
-// });
-
-// handleStream.on("tweet", function (tweet) {
-//   console.log(tweet.text);
-//   socket.broadcast.emit("tweet", { tweet: tweet });
-//   // dbFunctions.saveCustomer(tweet.user);
-//   // dbFunctions.saveTweet(tweet);
-// });
-
-// const msgStream = twitterAPIClient.stream("direct_messages");
-// handleStream.on("direct_message", function (directMsg) {
-//   console.log(directMsg);
-//   userSocket.emit("message", { message: directMsg });
-// });
 
 app.set("port", process.env.PORT || 3000);
 
@@ -154,19 +136,6 @@ app.use("/apis/message", messageRouter);
 /* twitter login API. */
 app.get("/twitter/login", passport.authenticate("twitter"));
 
-// app.get(
-//   "/twitter/callback",
-//   passport.authenticate("twitter", {
-//     failureRedirect: "/",
-//   }),
-//   function (req, res) {
-//     console.log(req);
-//     // res.redirect("/");
-
-//     res.setHeader("x-auth-token", req.token);
-//     res.redirect("http://jagz.com:3001/home");
-//   }
-// );
 
 const EventEmitter = require("events");
 class AuthEmitter extends EventEmitter {}
